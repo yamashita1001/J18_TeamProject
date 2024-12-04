@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:gravity="center">
+
+    <!-- ユーザー名入力フィールド -->
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ユーザー名"
+        android:inputType="text"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:minHeight="48dp"/>
+
+    <!-- パスワード入力フィールド -->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="パスワード"
+        android:inputType="textPassword"
+        android:layout_marginTop="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:minHeight="48dp"/>
+
+    <!-- ログインボタン -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ログイン"
+        android:textSize="16dp"
+        android:layout_marginTop="32dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:layout_marginBottom="12dp"
+        android:minHeight="48dp"
+        />
+
+    <Button
+        android:id="@+id/registerLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新規作成"
+        android:onClick="goToRegisterActivity"
+        android:textSize="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:minHeight="48dp" />
+
+
+</LinearLayout>
