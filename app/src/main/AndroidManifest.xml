@@ -30,6 +30,12 @@
             android:exported="true">
         </activity>
 
+        <!-- HomeActivityの定義 -->
+        <activity android:name=".HomeActivity" />
+
+        <!-- InputWaterの定義 -->
+        <activity android:name=".InputWaterActivity" />
+
     </application>
 
 </manifest>
