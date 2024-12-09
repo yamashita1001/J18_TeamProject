@@ -9,15 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-
-    // ログイン用データベースインスタンス生成
-    private lateinit var logindb: LoginDatabase
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        logindb = LoginDatabase(this)
 
         // UI要素を取得
         val usernameEditText = findViewById<EditText>(R.id.username)
@@ -31,20 +25,10 @@ class MainActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             // ユーザー名とパスワードの検証
-//            if (username == "user" && password == "password") {
-//                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
-//            }
-            if (logindb.validateUser(username, password)) {
-                Toast.makeText(this, "ログイン成功！", Toast.LENGTH_SHORT).show()
-                // 次の画面に進む処理を追加
-                // HomeActivityに遷移
-                val intent = Intent(this, HomeActivity::class.java)
-//                intent.putExtra("USERNAME", username) // 必要ならデータを渡す
-                startActivity(intent)
+            if (username == "user" && password == "password") {
+                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "ユーザー名またはパスワードが間違っています", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -56,5 +40,3 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
-
-
