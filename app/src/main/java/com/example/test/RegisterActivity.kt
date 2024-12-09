@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 class RegisterActivity : AppCompatActivity() {
 
 
+
     private lateinit var logindb: LoginDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
