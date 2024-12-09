@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
+
+
     // ログイン用データベースインスタンス生成
     private lateinit var logindb: LoginDatabase
 
