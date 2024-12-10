@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ホームメニュー -->
+    <item
+        android:id="@+id/nav_home"
+        android:title="ホーム" />
+
+    <!-- 摂取量表示 -->
+    <item
+        android:id="@+id/nav_intake"
+        android:title="期間ごとの摂取量" />
+
+    <!-- マイページ -->
+    <item
+        android:id="@+id/nav_myPage"
+        android:title="マイページ" />
+
+    <!-- 設定メニュー -->
+    <item
+        android:id="@+id/nav_settings"
+        android:title="設定" />
+
+</menu>
