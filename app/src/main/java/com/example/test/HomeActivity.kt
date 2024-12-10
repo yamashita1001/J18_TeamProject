@@ -12,6 +12,10 @@ import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity() {
 
+    // 合計摂取量変数
+    companion object {
+        var sumWater = 0 // 静的に合計を保持
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,23 @@ class HomeActivity : AppCompatActivity() {
         val inputWaterButton = findViewById<Button>(R.id.inputWaterButton)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
+        val inputWaterValueTextView = findViewById<TextView>(R.id.inputWaterValueTextView)
+
+
+        // InputWaterからデータ受け取り
+        val text = intent.getStringExtra("TEXT_KEY")
+        // InputWaterから値を継承したものを数値に変換して合計表示
+        if (!text.isNullOrEmpty()) {
+            val waterValue = text.toIntOrNull() // 数値変換
+            if (waterValue != null) {
+                sumWater += waterValue // 合計に加算
+            }
+        }
+
+        // 合計を表示
+        inputWaterValueTextView.text = "合計摂取量: $sumWater ml / 2000ml"
+
+
 
         // ハンバーガーアイコンの設定
         val toggle = ActionBarDrawerToggle(
