@@ -37,6 +37,14 @@
         <!-- InputWaterの定義 -->
         <activity android:name=".InputWaterActivity" />
 
+        <!-- IntakeActivityの定義 -->
+        <activity android:name=".IntakeActivity" />
+
+        <!-- MyPageActivityの定義 -->
+        <activity android:name=".MyPageActivity" />
+
+        <!-- SettingsActivityの定義 -->
+        <activity android:name=".SettingsActivity"/>
     </application>
 
 </manifest>

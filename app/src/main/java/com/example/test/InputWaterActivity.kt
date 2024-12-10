@@ -16,13 +16,13 @@ class InputWaterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_inputwater)
 
         // MainActivityからデータを受け取る
-//        val username = intent.getStringExtra("USERNAME")
+        //val username = intent.getStringExtra("USERNAME")
 
         // UIに表示（例: TextViewを使う場合）
 
         val titleTextView = findViewById<TextView>(R.id.titleTextView)
         val inputCompletedButton = findViewById<Button>(R.id.inputCompletedButton)
-//        welcomeTextView.text = "ようこそ、$username さん！"
+        //welcomeTextView.text = "ようこそ、$username さん！"
 
         inputCompletedButton.setOnClickListener {
             // InputWaterActivityへ遷移

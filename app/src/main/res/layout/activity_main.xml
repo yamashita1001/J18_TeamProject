@@ -7,6 +7,24 @@
     android:gravity="center">
 
 
+    <!-- アプリタイトル -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Waterテイカー"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <!-- ログインテキスト -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ログイン"
+        android:textSize="26dp"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
     <!-- ユーザー名入力フィールド -->
     <EditText
         android:id="@+id/username"
@@ -44,9 +62,10 @@
         android:minHeight="48dp"
         />
 
+    <!-- 新規作成ボタン -->
     <Button
         android:id="@+id/registerLink"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="新規作成"
         android:onClick="goToRegisterActivity"
