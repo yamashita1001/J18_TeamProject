@@ -13,11 +13,46 @@
         android:text="水分入力画面"
         android:textSize="30dp" />
 
+    <TextView
+        android:id="@+id/oftenUsedItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="よく使う項目"
+        android:textSize="20dp" />
+
+    <!-- 水分量入力部分  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/inputNumberText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="数字を入力してください"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/mlTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ml"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/inputCompletedButton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:onClick="goToHomeActivity"
-        android:text="追加" />
+        android:text="追加"
+        />
 </LinearLayout>

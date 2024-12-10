@@ -30,23 +30,27 @@ class RegisterActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
 
+            // 入力抜け処理
             if (username.isEmpty() || email.isEmpty() || password.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-//                Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
                 Toast.makeText(this, "全てのフィールドを入力してください", Toast.LENGTH_SHORT).show()
-            } else if (password != confirmPassword) {
-//                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+            }
+            // パスワード不一致
+            else if (password != confirmPassword) {
                 Toast.makeText(this, "パスワードが一致しません", Toast.LENGTH_SHORT).show()
-            } else {
+            }
+            // 問題なしの時の処理
+            else {
                 val success = logindb.addUser(username, email, password)
                 if (success) {
                     // ユーザー登録処理
-                    Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "登録が完了しました！", Toast.LENGTH_SHORT).show()
 
                     // 登録後にMainActivityに戻る
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                } else {
+                }
+                else {
                     Toast.makeText(this, "登録に失敗しました。ユーザー名が重複している可能性があります", Toast.LENGTH_SHORT).show()
                 }
             }
