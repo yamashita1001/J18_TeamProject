@@ -43,7 +43,7 @@ class InputWaterActivity : AppCompatActivity() {
                 // 値が範囲内ならホーム画面へ遷移
                 val intent = Intent(this, HomeActivity::class.java)
                 // intent変数をつなげる(第一引数はキー，第二引数は渡したい変数)
-                intent.putExtra("TEXT_KEY", waterValue.toString())
+                intent.putExtra("TEXT_KEY", waterValue)
                 startActivity(intent)
             }
         }

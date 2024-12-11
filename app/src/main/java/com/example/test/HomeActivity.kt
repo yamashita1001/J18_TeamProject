@@ -1,6 +1,7 @@
 package com.example.test
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -9,6 +10,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.navigation.NavigationView
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.*
+import androidx.core.content.ContextCompat
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.utils.ColorTemplate
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -30,9 +37,7 @@ class HomeActivity : AppCompatActivity() {
         //welcomeTextView.text = "ようこそ、$username さん！"
 
 
-        // UIに表示
-        val homeTextView = findViewById<TextView>(R.id.homeTextView)
-        val welcomeTextView = findViewById<TextView>(R.id.welcomeTextView)
+        // コンポーネントを取得
         val inputWaterButton = findViewById<Button>(R.id.inputWaterButton)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
@@ -40,33 +45,59 @@ class HomeActivity : AppCompatActivity() {
 
 
         // InputWaterからデータ受け取り
-        val text = intent.getStringExtra("TEXT_KEY")
-        // InputWaterから値を継承したものを数値に変換して合計表示
-        if (!text.isNullOrEmpty()) {
-            val waterValue = text.toIntOrNull() // 数値変換
-            if (waterValue != null) {
-                sumWater += waterValue // 合計に加算
-            }
+        val waterValue = intent.getIntExtra("TEXT_KEY", 0)
+        // InputWaterから値を継承したものを合計して表示
+        if (waterValue != null) {
+            sumWater += waterValue // 合計に加算
         }
 
-        // 合計を表示
+
+        // 水分摂取合計を表示
         inputWaterValueTextView.text = "合計摂取量: $sumWater ml / 2000ml"
 
+        // 水分摂取量の円グラフ
+        // コンポーネントを取得
+        val pieChart: PieChart = findViewById(R.id.pieChart)
 
+        // グラフのデータを設定(float型)
+        val value: ArrayList<PieEntry> = ArrayList()
+        value.add(PieEntry(8F, ""))
+        value.add(PieEntry(2F, ""))
 
-        // ハンバーガーアイコンの設定
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        // 表示する凡例の色を設定
+        val color: ArrayList<Int> = ArrayList()
+        color.add(Color.rgb(8,255,238))
+        color.add(Color.rgb(230,230,230))
 
+        // 真ん中に現在の摂取量の割合を表示(%)
+        pieChart.centerText = "水分摂取量\n80%/100%"
+        pieChart.setCenterTextSize(20f) // テキストサイズ
 
-        inputWaterButton.setOnClickListener {
-            // InputWaterActivityへ遷移
-            val intent = Intent(this, InputWaterActivity::class.java)
-            startActivity(intent)
-        }
+        // chartに設定
+        val dataSet = PieDataSet(value, "waterValue")
+        dataSet.colors = color
+        pieChart.data = PieData(dataSet)
+
+        // 円グラフ非表示設定
+        // グラフの一部非表示
+        dataSet.setDrawValues(false) // ラベルの非表示
+        dataSet.setDrawIcons(false) // アイコンも非表示
+        // グラフ左下の凡例非表示
+        pieChart.legend.isEnabled = false
+        // description非表示
+        pieChart.description.isEnabled = false
+
+        // グラフ回転不可設定
+        pieChart.isRotationEnabled = false
+
+        // 凡例の文字色変更
+        dataSet.setDrawValues(false) // ラベルを非表示に設定
+        dataSet.valueTextColor = Color.BLACK
+        dataSet.valueTextSize = 14f
+
+        // グラフの更新
+        pieChart.invalidate()
+
 
         // メニュー項目のクリック処理
         navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -97,5 +128,23 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+
+        // ハンバーガーアイコンの設定
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+
+        inputWaterButton.setOnClickListener {
+            // InputWaterActivityへ遷移
+            val intent = Intent(this, InputWaterActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
     }
 }

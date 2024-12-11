@@ -4,30 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="32dp"
-    android:gravity="center">
+    android:gravity="center_horizontal">
 
+    <!-- 画面遷移をわかりやすくするためのテキスト(後に削除予定) -->
     <TextView
-        android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="水分入力画面"
         android:textSize="30dp" />
 
+    <!-- よく使う項目テキスト -->
     <TextView
-        android:id="@+id/oftenUsedItem"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="よく使う項目"
-        android:textSize="20dp" />
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="300dp"/>   <!-- 下の余白 -->
+
+    <!-- 手入力はこちらテキスト -->
+    <TextView
+        android:id="@+id/manualInputText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="手入力はこちら"
+        android:textSize="20dp"
+        android:gravity="center"/>
 
     <!-- 水分量入力部分  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical">
+        android:layout_marginTop="16dp" >
 
+        <!-- 水分摂取手入力欄 -->
         <EditText
             android:id="@+id/inputNumberText"
             android:layout_width="0dp"
@@ -36,17 +48,21 @@
             android:hint="数字を入力してください"
             android:inputType="number"
             android:minHeight="48dp"
-            android:padding="8dp" />
+            android:padding="10dp"
+            android:gravity="center_horizontal" />
 
+        <!-- "ml"のテキスト -->
         <TextView
             android:id="@+id/mlTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ml"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_marginStart="8dp" />
+
     </LinearLayout>
 
+    <!-- 追加ボタン(ホームへの画面遷移) -->
     <Button
         android:id="@+id/inputCompletedButton"
         android:layout_width="100dp"
@@ -54,5 +70,7 @@
         android:textSize="20dp"
         android:onClick="goToHomeActivity"
         android:text="追加"
+        android:layout_marginTop="30dp"
+
         />
 </LinearLayout>
