@@ -1,5 +1,6 @@
 package com.example.test
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.github.mikephil.charting.data.*
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.utils.ColorTemplate
+import android.os.Handler
 
 
 class HomeActivity : AppCompatActivity() {
@@ -42,6 +44,7 @@ class HomeActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
         val inputWaterValueTextView = findViewById<TextView>(R.id.inputWaterValueTextView)
+        val messagetextView = findViewById<TextView>(R.id.messagetextView)
 
 
         // InputWaterからデータ受け取り
@@ -98,6 +101,35 @@ class HomeActivity : AppCompatActivity() {
         // グラフの更新
         pieChart.invalidate()
 
+        // ----------------------------------------------------------------------------- //
+        // - 一言メッセージ表示機能 -------------------------------------------------------- //
+        // ----------------------------------------------------------------------------- //
+
+        // 指定した時間（ミリ秒後）に処理を実行するメソッド
+        // 引数：delayMillis: Long → 遅延のミリ秒数を指定
+        fun scheduleTaskExecution(actionTimestamp: Long, delayMillis:Long) {
+            val handler = Handler()
+
+            handler.postDelayed({
+                val currentTime = System.currentTimeMillis()
+                val timeElapsed = currentTime - actionTimestamp
+
+                messagetextView.text = if (timeElapsed >= delayMillis) {
+                    "水分摂取を推奨します"
+                } else {
+                    "水分摂取から $timeElapsed 分経過しました"
+                }
+            }, delayMillis)
+        }
+
+        // 追加ボタン押した時の時間受取
+        val receivedTimestamp = intent.getLongExtra("TIMESTAMP_KEY", 0L)
+        // 第二引数経過後に関数呼び出し
+        scheduleTaskExecution(receivedTimestamp, 1 * 30 * 1000)
+
+        // ----------------------------------------------------------------------------- //
+        // ----------------------------------------------------------------------------- //
+        // ----------------------------------------------------------------------------- //
 
         // メニュー項目のクリック処理
         navigationView.setNavigationItemSelectedListener { menuItem ->

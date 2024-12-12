@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 class InputWaterActivity : AppCompatActivity() {
 
+    // 水分摂取量追加時の時間格納
+    private var actionTimestamp: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +42,13 @@ class InputWaterActivity : AppCompatActivity() {
                 Toast.makeText(this, "1以上6000以下の値を入力してください", Toast.LENGTH_SHORT).show()
             }
             else {
+                // ボタンが押された時の時刻を記録
+                actionTimestamp = System.currentTimeMillis()
                 // 値が範囲内ならホーム画面へ遷移
                 val intent = Intent(this, HomeActivity::class.java)
                 // intent変数をつなげる(第一引数はキー，第二引数は渡したい変数)
                 intent.putExtra("TEXT_KEY", waterValue)
+                intent.putExtra("TIMESTAMP_KEY", actionTimestamp)
                 startActivity(intent)
             }
         }
