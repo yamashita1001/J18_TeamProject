@@ -23,8 +23,13 @@ class HomeActivity : AppCompatActivity() {
 
     // 合計摂取量変数
     companion object {
-        var sumWater = 0 // 静的に合計を保持
+        // 静的に合計を保持
+        var sumWaterValue = 0
+        var goalWaterValue = 2000
+        var percentWaterValue:Long = 0
+
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +56,13 @@ class HomeActivity : AppCompatActivity() {
         val waterValue = intent.getIntExtra("TEXT_KEY", 0)
         // InputWaterから値を継承したものを合計して表示
         if (waterValue != null) {
-            sumWater += waterValue // 合計に加算
+            sumWaterValue += waterValue // 合計に加算
+            percentWaterValue = Math.round(sumWaterValue.toDouble() / goalWaterValue.toDouble() * 100)
         }
 
 
         // 水分摂取合計を表示
-        inputWaterValueTextView.text = "合計摂取量: $sumWater ml / 2000ml"
+        inputWaterValueTextView.text = "合計摂取量: $sumWaterValue ml / 2000ml"
 
         // 水分摂取量の円グラフ
         // コンポーネントを取得
@@ -64,16 +70,28 @@ class HomeActivity : AppCompatActivity() {
 
         // グラフのデータを設定(float型)
         val value: ArrayList<PieEntry> = ArrayList()
-        value.add(PieEntry(8F, ""))
-        value.add(PieEntry(2F, ""))
+        // 割合を表示(上:摂取した割合 下:残りの割合)
+        value.add(PieEntry((percentWaterValue.toFloat()), ""))
+        // 100%以下は割合を変更
+        if(0 < (100F - percentWaterValue.toFloat())) {
+            value.add(PieEntry(100F - percentWaterValue.toFloat(), ""))
+        }
+        // 100%以上になった場合は割合を0に固定
+        else {
+            value.add(PieEntry(0F,""))
+        }
+
+
 
         // 表示する凡例の色を設定
         val color: ArrayList<Int> = ArrayList()
         color.add(Color.rgb(8,255,238))
         color.add(Color.rgb(230,230,230))
 
+
+
         // 真ん中に現在の摂取量の割合を表示(%)
-        pieChart.centerText = "水分摂取量\n80%/100%"
+        pieChart.centerText = "水分摂取量\n $percentWaterValue %/100%"
         pieChart.setCenterTextSize(20f) // テキストサイズ
 
         // chartに設定
@@ -125,7 +143,7 @@ class HomeActivity : AppCompatActivity() {
         // 追加ボタン押した時の時間受取
         val receivedTimestamp = intent.getLongExtra("TIMESTAMP_KEY", 0L)
         // 第二引数経過後に関数呼び出し
-        scheduleTaskExecution(receivedTimestamp, 1 * 30 * 1000)
+        scheduleTaskExecution(receivedTimestamp, 1 * 5 * 1000)
 
         // ----------------------------------------------------------------------------- //
         // ----------------------------------------------------------------------------- //
