@@ -11,8 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-
         <!-- ツールバー（画面上部） -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -45,6 +43,7 @@
             android:layout_height="wrap_content"
             android:text="水分量表示"
             android:textSize="20sp"
+            android:layout_gravity="center"
             android:layout_marginBottom="20dp" />
 
         <!-- 一言メッセージ機能 -->
@@ -54,17 +53,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="一言メッセージ"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:layout_gravity="center" />
 
         <!-- プラスボタン(入力画面遷移ボタン)   -->
+        <!-- フローティングアクションボタンに変えたい -->
         <Button
             android:id="@+id/inputWaterButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="＋"
-            android:onClick="goToInputWaterActivity" />
-
-
+            android:onClick="goToInputWaterActivity"
+            android:layout_gravity="right"/>
 
     </LinearLayout>
 
@@ -74,8 +74,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/drawer_menu"
-        app:headerLayout="@layout/drawer_header"/>
-
-
+        app:headerLayout="@layout/drawer_header" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
