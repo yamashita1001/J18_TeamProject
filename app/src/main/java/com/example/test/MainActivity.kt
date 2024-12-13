@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "ログインしました", Toast.LENGTH_SHORT).show()
                 // 次の画面に進む処理を追加
                 // HomeActivityに遷移
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, BodyInfoActivity::class.java)
 //                intent.putExtra("USERNAME", username) // 必要ならデータを渡す
                 startActivity(intent)
             } else {

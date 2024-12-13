@@ -45,6 +45,9 @@
 
         <!-- SettingsActivityの定義 -->
         <activity android:name=".SettingsActivity"/>
+
+        <!-- SettingsActivityの定義 -->
+        <activity android:name=".BodyInfoActivity"/>
     </application>
 
 </manifest>
