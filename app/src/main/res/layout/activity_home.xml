@@ -34,7 +34,8 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+            android:layout_height="300dp"
+            android:layout_marginBottom="30dp"/>
 
         <!-- 水分量の表示  -->
         <TextView
@@ -44,27 +45,30 @@
             android:text="水分量表示"
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="30dp" />
 
         <!-- 一言メッセージ機能 -->
-        <TextView
-            android:id="@+id/messagetextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="一言メッセージ"
-            android:textSize="15sp"
-            android:layout_gravity="center" />
 
         <!-- プラスボタン(入力画面遷移ボタン)   -->
         <!-- フローティングアクションボタンに変えたい -->
+        <TextView
+            android:id="@+id/messagetextView"
+            android:layout_width="244dp"
+            android:layout_height="112dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/frame_style"
+            android:gravity="center"
+            android:text="一言メッセージ"
+            android:textSize="15sp" />
+
         <Button
             android:id="@+id/inputWaterButton"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="＋"
+            android:layout_gravity="right"
             android:onClick="goToInputWaterActivity"
-            android:layout_gravity="right"/>
+            android:text="＋" />
 
     </LinearLayout>
 
