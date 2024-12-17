@@ -4,21 +4,25 @@
     <!-- ホームメニュー -->
     <item
         android:id="@+id/nav_home"
-        android:title="ホーム" />
+        android:title="ホーム"
+        android:icon="@drawable/ic_home" />
 
     <!-- 摂取量表示 -->
     <item
         android:id="@+id/nav_intake"
-        android:title="期間ごとの摂取量" />
+        android:title="期間ごとの摂取量"
+        android:icon="@drawable/ic_intake_graph" />
 
     <!-- マイページ -->
     <item
         android:id="@+id/nav_myPage"
-        android:title="マイページ" />
+        android:title="マイページ"
+        android:icon="@drawable/ic_mypage" />
 
     <!-- 設定メニュー -->
     <item
         android:id="@+id/nav_settings"
-        android:title="設定" />
+        android:title="設定"
+        android:icon="@drawable/ic_settings" />
 
 </menu>

@@ -62,13 +62,16 @@
             android:text="一言メッセージ"
             android:textSize="15sp" />
 
-        <Button
+        <!-- プラスボタン(入力画面遷移ボタン)   -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/inputWaterButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="goToInputWaterActivity"
-            android:text="＋" />
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_add"
+            app:backgroundTint="#00BCD4"
+            android:layout_gravity="bottom|end"
+            android:contentDescription="摂取水分追加用ボタン" />
 
     </LinearLayout>
 

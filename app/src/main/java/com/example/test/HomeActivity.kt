@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.utils.ColorTemplate
 import android.os.Handler
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class HomeActivity : AppCompatActivity() {
@@ -45,12 +46,11 @@ class HomeActivity : AppCompatActivity() {
 
 
         // コンポーネントを取得
-        val inputWaterButton = findViewById<Button>(R.id.inputWaterButton)
+        val inputWaterButton: FloatingActionButton = findViewById(R.id.inputWaterButton)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
         val inputWaterValueTextView = findViewById<TextView>(R.id.inputWaterValueTextView)
         val messagetextView = findViewById<TextView>(R.id.messagetextView)
-
 
         // InputWaterからデータ受け取り
         val waterValue = intent.getIntExtra("TEXT_KEY", 0)
@@ -82,12 +82,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-
         // 表示する凡例の色を設定
         val color: ArrayList<Int> = ArrayList()
         color.add(Color.rgb(8,255,238))
         color.add(Color.rgb(230,230,230))
-
 
 
         // 真ん中に現在の摂取量の割合を表示(%)
@@ -149,6 +147,7 @@ class HomeActivity : AppCompatActivity() {
         // ----------------------------------------------------------------------------- //
         // ----------------------------------------------------------------------------- //
 
+
         // メニュー項目のクリック処理
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -187,14 +186,11 @@ class HomeActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-
+        // 水分追加の＋ボタンの処理
         inputWaterButton.setOnClickListener {
             // InputWaterActivityへ遷移
             val intent = Intent(this, InputWaterActivity::class.java)
             startActivity(intent)
         }
-
-
-
     }
 }

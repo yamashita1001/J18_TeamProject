@@ -1,140 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!-- ツールバーの実装コンテナ -->
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="32dp"
-    android:gravity="center_horizontal">
+    android:layout_height="match_parent">
 
-    <!-- 画面遷移をわかりやすくするためのテキスト(後に削除予定) -->
-    <TextView
+    <!-- スクロール可能なエリア -->
+    <android.widget.ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="水分入力画面"
-        android:textSize="30dp"
-        android:gravity="center" />
+        android:layout_height="match_parent">
 
-    <!-- よく使う項目テキスト -->
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="よく使う項目"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="16dp" />
-
-    <!-- よく使う項目ボタングループ -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="20dp" >
-
-        <ImageButton
-            android:id="@+id/button120"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:src="@drawable/ic_120ml"
-            android:contentDescription="120mlのボタン"
-            android:scaleType="fitCenter"
-            android:background="@null" />
-
-        <ImageButton
-            android:id="@+id/button500"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:src="@drawable/ic_500ml"
-            android:contentDescription="500mlのボタン"
-            android:scaleType="fitCenter"
-            android:background="@null"/>
-
-        <ImageButton
-            android:id="@+id/button1000"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:src="@drawable/ic_1000ml"
-            android:contentDescription="1Lのボタン"
-            android:scaleType="fitCenter"
-            android:background="@null"/>
-
-    </LinearLayout>
-
-    <!-- よく使う項目ボタン説明テキストグループ -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="120dp">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="120ml"
-            android:layout_marginRight="80dp"/>
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="500ml"
-            android:layout_marginRight="80dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1000ml" />
-
-    </LinearLayout>
+            <!-- ツールバー（画面上部） -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:title="水分入力画面" />
 
 
-    <!-- 手入力はこちらテキスト -->
-    <TextView
-        android:id="@+id/manualInputText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="手入力はこちら"
-        android:textSize="20dp"
-        android:gravity="center" />
+            <!-- よく使う項目テキスト -->
 
-    <!-- 水分量入力部分  -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp" >
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="よく使う項目"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="16dp" />
 
-        <!-- 水分摂取手入力欄 -->
-        <EditText
-            android:id="@+id/inputNumberText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="数字を入力してください"
-            android:inputType="number"
-            android:minHeight="48dp"
-            android:padding="10dp"
-            android:gravity="left" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="36dp" >
 
-        <!-- "ml"のテキスト -->
-        <TextView
-            android:id="@+id/mlTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ml"
-            android:textSize="20sp"
-            android:layout_marginStart="8dp" />
+                <ImageButton
+                    android:id="@+id/recent1"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter" />
 
-    </LinearLayout>
+                <ImageButton
+                    android:id="@+id/recent2"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter" />
 
-    <!-- 追加ボタン(ホームへの画面遷移) -->
-    <Button
-        android:id="@+id/inputCompletedButton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:onClick="goToHomeActivity"
-        android:text="追加"
-        android:layout_marginTop="30dp" />
+                <ImageButton
+                    android:id="@+id/recent3"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter" />
 
-</LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="水分量の選択"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <!-- いろんな分量プリセット -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="80dp"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <!-- １行目ボタン行 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="32dp">
+
+                    <ImageButton
+                        android:id="@+id/button120"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:background="@null"
+                        android:contentDescription="120ミリリットル追加ボタン"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_120ml" />
+
+                    <ImageButton
+                        android:id="@+id/button200"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:background="@null"
+                        android:contentDescription="200ミリリットル追加ボタン"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_200ml" />
+
+                    <ImageButton
+                        android:id="@+id/button500"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:background="@null"
+                        android:contentDescription="500ミリリットル追加ボタン"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_500ml" />
+                </LinearLayout>
+
+                <!-- 2行目ボタン行 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageButton
+                        android:id="@+id/button1000"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:background="@null"
+                        android:contentDescription="1リットル追加ボタン"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_1000ml" />
+
+                    <ImageButton
+                        android:id="@+id/button1500"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:background="@null"
+                        android:contentDescription="1.5リットル追加ボタン"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_1500ml" />
+
+                    <ImageButton
+                        android:id="@+id/button2000"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:background="@null"
+                        android:contentDescription="2リットル追加ボタン"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_2000ml" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- 手入力はこちらテキスト -->
+            <TextView
+                android:id="@+id/manualInputText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手入力はこちら"
+                android:textSize="20dp" />
+
+            <!-- 水分量入力部分  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp">
+
+                <!-- 水分摂取手入力欄 -->
+                <EditText
+                    android:id="@+id/inputNumberText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="数字を入力してください"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:padding="10dp"
+                    android:gravity="left" />
+
+                <!-- "ml"のテキスト -->
+                <TextView
+                    android:id="@+id/mlTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ml"
+                    android:textSize="20sp"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- 追加ボタン(ホームへの画面遷移) -->
+            <Button
+                android:id="@+id/inputCompletedButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:onClick="goToHomeActivity"
+                android:text="追加"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"/>
+
+        </LinearLayout>
+
+    </android.widget.ScrollView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
