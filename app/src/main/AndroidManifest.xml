@@ -43,6 +43,9 @@
         <!-- MyPageActivityの定義 -->
         <activity android:name=".MyPageActivity" />
 
+        <!-- EditMyPageActivityの定義 -->
+        <activity android:name=".EditMyPageActivity" />
+
         <!-- SettingsActivityの定義 -->
         <activity android:name=".SettingsActivity"/>
 
