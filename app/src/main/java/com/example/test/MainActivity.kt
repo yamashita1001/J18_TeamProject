@@ -9,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-
-
     // ログイン用データベースインスタンス生成
     private lateinit var logindb: LoginDatabase
 
@@ -28,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         // ログインボタンのクリックリスナー
         loginButton.setOnClickListener {
-            val username = usernameEditText.text.toString()
+            val userId = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
 
             // ユーザー名とパスワードの検証
@@ -37,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 //            } else {
 //                Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
 //            }
-            if (logindb.validateUser(username, password)) {
+            if (logindb.validateUser(userId, password)) {
                 Toast.makeText(this, "ログインしました", Toast.LENGTH_SHORT).show()
                 // 次の画面に進む処理を追加
                 // HomeActivityに遷移

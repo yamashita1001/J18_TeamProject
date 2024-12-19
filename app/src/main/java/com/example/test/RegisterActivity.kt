@@ -25,13 +25,13 @@ class RegisterActivity : AppCompatActivity() {
         val registerButton: Button = findViewById(R.id.registerButton)
 
         registerButton.setOnClickListener {
-            val username = usernameEditText.text.toString()
+            val userId = usernameEditText.text.toString()
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
 
             // 入力抜け処理
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            if (userId.isEmpty() || email.isEmpty() || password.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "全てのフィールドを入力してください", Toast.LENGTH_SHORT).show()
             }
             // パスワード不一致
@@ -40,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
             }
             // 問題なしの時の処理
             else {
-                val success = logindb.addUser(username, email, password)
+                val success = logindb.addUser(userId, email, password)
                 if (success) {
                     // ユーザー登録処理
                     Toast.makeText(this, "登録が完了しました！", Toast.LENGTH_SHORT).show()
