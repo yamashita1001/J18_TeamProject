@@ -20,8 +20,8 @@ class BodyInfoActivity : AppCompatActivity() {
         val weightInput = findViewById<EditText>(R.id.weightInput)
         val saveButton = findViewById<Button>(R.id.saveButton)
 
-        // 保存された情報をロード
-        loadBodyInfo(ageInput, heightInput, weightInput)
+//        // 保存された情報をロード
+//        loadBodyInfo(ageInput, heightInput, weightInput)
 
         // 保存ボタンのクリックリスナー
         saveButton.setOnClickListener {
@@ -50,15 +50,15 @@ class BodyInfoActivity : AppCompatActivity() {
         editor.apply()
     }
 
-    // 身体情報をロード
-    private fun loadBodyInfo(ageInput: EditText, heightInput: EditText, weightInput: EditText) {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("UserBodyInfo", MODE_PRIVATE)
-        val age = sharedPreferences.getInt("age", -1)
-        val height = sharedPreferences.getFloat("height", -1f)
-        val weight = sharedPreferences.getFloat("weight", -1f)
-
-        if (age != -1) ageInput.setText(age.toString())
-        if (height != -1f) heightInput.setText(height.toString())
-        if (weight != -1f) weightInput.setText(weight.toString())
-    }
+//    // 身体情報をロード
+//    private fun loadBodyInfo(ageInput: EditText, heightInput: EditText, weightInput: EditText) {
+//        val sharedPreferences: SharedPreferences = getSharedPreferences("UserBodyInfo", MODE_PRIVATE)
+//        val age = sharedPreferences.getInt("age", -1)
+//        val height = sharedPreferences.getFloat("height", -1f)
+//        val weight = sharedPreferences.getFloat("weight", -1f)
+//
+//        if (age != -1) ageInput.setText(age.toString())
+//        if (height != -1f) heightInput.setText(height.toString())
+//        if (weight != -1f) weightInput.setText(weight.toString())
+//    }
 }
