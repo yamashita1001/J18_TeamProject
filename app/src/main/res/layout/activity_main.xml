@@ -32,7 +32,8 @@
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingTop="12dp"
-        android:paddingBottom="12dp" />
+        android:paddingBottom="12dp"
+        android:textSize="24sp" />
 
     <!-- password入力 -->
     <EditText
@@ -44,7 +45,8 @@
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:paddingTop="12dp"
-        android:paddingBottom="12dp" />
+        android:paddingBottom="12dp"
+        android:textSize="24sp" />
 
     <!-- ログインボタン -->
     <Button
