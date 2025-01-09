@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <!-- 必要に応じて色を追加 -->
     <color name="lightblue">#A8EAE6</color>
+    <color name="gray">#FFD9D9D9</color>
+    <color name="skyblue">#FF249FD9</color>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -23,6 +24,7 @@ class RegisterActivity : AppCompatActivity() {
         val passwordEditText: EditText = findViewById(R.id.password)
         val confirmPasswordEditText: EditText = findViewById(R.id.confirmPassword)
         val registerButton: Button = findViewById(R.id.registerButton)
+        val loginLink: TextView = findViewById(R.id.loginLink)
 
         registerButton.setOnClickListener {
             val userId = usernameEditText.text.toString()
@@ -55,5 +57,14 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // アカウントをすでに持っている場合のボタン遷移
+        loginLink.setOnClickListener {
+            // MainActivityに戻る
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 }
