@@ -18,6 +18,8 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.utils.ColorTemplate
 import android.os.Handler
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.view.Menu
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class HomeActivity : AppCompatActivity() {
@@ -40,17 +42,15 @@ class HomeActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // MainActivityからデータを受け取る
-        //val username = intent.getStringExtra("USERNAME")
-        //welcomeTextView.text = "ようこそ、$username さん！"
-
+        // アクションバーのタイトルを消す
+        supportActionBar?.title = ""
 
         // コンポーネントを取得
         val inputWaterButton: FloatingActionButton = findViewById(R.id.inputWaterButton)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navigationView: NavigationView = findViewById(R.id.navigation_view)
         val inputWaterValueTextView = findViewById<TextView>(R.id.inputWaterValueTextView)
         val messagetextView = findViewById<TextView>(R.id.messagetextView)
+        val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         // InputWaterからデータ受け取り
         val waterValue = intent.getIntExtra("TEXT_KEY", 0)
@@ -62,9 +62,12 @@ class HomeActivity : AppCompatActivity() {
 
 
         // 水分摂取合計を表示
-        inputWaterValueTextView.text = "合計摂取量: $sumWaterValue ml / 2000ml"
+        inputWaterValueTextView.text = "$sumWaterValue ml"
 
-        // 水分摂取量の円グラフ
+        // ----------------------------------------------------------------------------- //
+        // - 円グラフ描画 ----------------------------------------------------------------- //
+        // ----------------------------------------------------------------------------- //
+
         // コンポーネントを取得
         val pieChart: PieChart = findViewById(R.id.pieChart)
 
@@ -141,35 +144,30 @@ class HomeActivity : AppCompatActivity() {
         // 追加ボタン押した時の時間受取
         val receivedTimestamp = intent.getLongExtra("TIMESTAMP_KEY", 0L)
         // 第二引数経過後に関数呼び出し
-        scheduleTaskExecution(receivedTimestamp, 1 * 5 * 1000)
+        scheduleTaskExecution(receivedTimestamp, 60 * 5 * 1000)
 
         // ----------------------------------------------------------------------------- //
+        // - 画面遷移 --------------------------------------------------------------------- //
         // ----------------------------------------------------------------------------- //
-        // ----------------------------------------------------------------------------- //
-
 
         // メニュー項目のクリック処理
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    // ホームが選択されたときの処理
+        navigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.item1 -> {
+                    // Home
                     drawerLayout.closeDrawers()
                     true
                 }
-                R.id.nav_settings -> {
-                    // 設定が選択されたときの処理
-                    val intent = Intent(this, SettingsActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.nav_intake -> {
-                    // 摂取量表示が選択されたときの処理
+
+                R.id.item2 -> {
+                    // Graph
                     val intent = Intent(this, IntakeActivity::class.java)
                     startActivity(intent)
                     true
                 }
-                R.id.nav_myPage -> {
-                    // マイページが選択されたときの処理
+
+                R.id.item3 -> {
+                    // settings
                     val intent = Intent(this, MyPageActivity::class.java)
                     startActivity(intent)
                     true
@@ -178,13 +176,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-
-        // ハンバーガーアイコンの設定
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
 
         // 水分追加の＋ボタンの処理
         inputWaterButton.setOnClickListener {

@@ -1,76 +1,184 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <!-- ツールバー（画面上部） -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <!-- メインコンテンツ部分 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="ホーム画面" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <!-- 円グラフ -->
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pieChart"
+            <!-- ツールバー（画面上部） -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#A8EAE6"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <!-- LinearLayout内にTextViewを配置して中央揃え -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ホーム画面"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="290dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+            <!-- 水分量の表示  -->
+            <TextView
+                android:id="@+id/inputWaterValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:text="水分量表示"
+                android:textAlignment="center"
+                android:textColor="#08C5FF"
+                android:textSize="34sp" />
+
+            <!-- 一言メッセージ -->
+            <TextView
+                android:id="@+id/messagetextView"
+                android:layout_width="307dp"
+                android:layout_height="82dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/frame_style"
+                android:gravity="center"
+                android:text="メッセージ"
+                android:textSize="25sp" />
+
+            <!-- タイトル -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="水分摂取"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:padding="16dp"
+                android:textColor="#000000" />
+
+            <!-- 水色部分 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#08FFEE"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginBottom="15dp">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal"
+                    android:fadeScrollbars="false"
+                    android:scrollbarStyle="insideInset"
+                    android:paddingBottom="0dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp">
+
+                        <!-- 白い枠の部分 -->
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_margin="8dp"
+                            android:background="#FFFFFF"
+                            android:layout_marginBottom="16dp"
+                            android:contentDescription="watartaker" />
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_margin="8dp"
+                            android:background="#FFFFFF"
+                            android:layout_marginBottom="16dp"
+                            android:contentDescription="watartaker" />
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_margin="8dp"
+                            android:background="#FFFFFF"
+                            android:layout_marginBottom="16dp"
+                            android:contentDescription="watartaker" />
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_margin="8dp"
+                            android:background="#FFFFFF"
+                            android:layout_marginBottom="16dp"
+                            android:contentDescription="watartaker" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- サイドメニュー部分（Drawer） -->
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/navigation_view"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_height="match_parent">
+            <!-- サイドメニューの内容 -->
+        </androidx.drawerlayout.widget.DrawerLayout>
 
-        <!-- 水分量の表示  -->
-        <TextView
-            android:id="@+id/inputWaterValueTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="水分量表示"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-        <!-- 一言メッセージ機能 -->
+    <!-- フッター部分に BottomNavigationView を追加 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#A8EAE6"
+        app:menu="@menu/footer_menu" />
 
-        <!-- プラスボタン(入力画面遷移ボタン)   -->
-        <!-- フローティングアクションボタンに変えたい -->
-        <TextView
-            android:id="@+id/messagetextView"
-            android:layout_width="244dp"
-            android:layout_height="112dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/frame_style"
-            android:gravity="center"
-            android:text="一言メッセージ"
-            android:textSize="15sp" />
-
-        <!-- プラスボタン(入力画面遷移ボタン)   -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/inputWaterButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_add"
-            app:backgroundTint="#00BCD4"
-            android:layout_gravity="bottom|end"
-            android:contentDescription="摂取水分追加用ボタン" />
-
-    </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view"
+    <!-- 追加のボタン -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/inputWaterButton"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/drawer_menu"
-        app:headerLayout="@layout/drawer_header" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="90dp"
+        android:contentDescription="摂取水分追加用ボタン"
+        app:backgroundTint="#00BCD4"
+        app:srcCompat="@drawable/ic_add" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
