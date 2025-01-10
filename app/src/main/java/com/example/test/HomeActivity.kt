@@ -168,7 +168,7 @@ class HomeActivity : AppCompatActivity() {
 
                 R.id.item3 -> {
                     // settings
-                    val intent = Intent(this, MyPageActivity::class.java)
+                    val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     true
                 }
