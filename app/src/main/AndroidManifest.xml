@@ -51,6 +51,18 @@
 
         <!-- SettingsActivityの定義 -->
         <activity android:name=".BodyInfoActivity"/>
+
+        <!-- HeightInfoActivityの定義 -->
+        <activity android:name=".HeightInfoActivity"/>
+
+        <!-- WeightInfoActivityの定義 -->
+        <activity android:name=".WeightInfoActivity"/>
+
+        <!-- GenderInfoActivityの定義 -->
+        <activity android:name=".GenderInfoActivity"/>
+
+        <!-- NameInfoActivityの定義 -->
+        <activity android:name=".NameInfoActivity"/>
     </application>
 
 </manifest>

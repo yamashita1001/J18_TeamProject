@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
             if (logindb.validateUser(userId, password)) {
                 Toast.makeText(this, "ログインしました", Toast.LENGTH_SHORT).show()
                 // 次の画面に進む処理を追加
-                // HomeActivityに遷移
-                val intent = Intent(this, BodyInfoActivity::class.java)
+                // GenderInfoActivity(初回登録)に遷移
+                val intent = Intent(this, GenderInfoActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "ユーザー名またはパスワードが間違っています", Toast.LENGTH_SHORT).show()

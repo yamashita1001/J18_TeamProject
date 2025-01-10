@@ -34,12 +34,12 @@
 
         <!-- 次へボタン -->
         <Button
-            android:id="@+id/nextWeightButton"
+            android:id="@+id/saveHeightButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:onClick="goToHomeActivity"
+            android:onClick="goToWeightInfoActivity"
             android:text="次へ" />
 
     </LinearLayout>

@@ -35,12 +35,12 @@
 
         <!-- 保存ボタン -->
         <Button
-            android:id="@+id/saveButton"
+            android:id="@+id/saveWeightButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:onClick="goToHomeActivity"
+            android:onClick="goToNameInfoActivity"
             android:text="保存" />
 
     </LinearLayout>

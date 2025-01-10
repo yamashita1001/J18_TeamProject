@@ -36,7 +36,7 @@
 
         <!-- 次へボタン -->
         <Button
-            android:id="@+id/nextGenderButton"
+            android:id="@+id/savenameButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
