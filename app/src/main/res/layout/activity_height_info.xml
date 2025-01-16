@@ -1,46 +1,199 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- 初回登録　-->
+        <!-- ツールバー（画面上部） -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#A8EAE6">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="初回身体情報登録"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+
+        <!-- アイコン -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="198dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/aicon" />
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+
+        <!-- 身長入力 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textSize="25dp"
-            android:text="初回登録" />
-        <!-- 年齢入力 -->
+            android:text="身長を入力"
+            android:layout_marginStart="36dp"
+            android:textSize="22sp" />
+
+<!--        <EditText-->
+<!--            android:id="@+id/heightInput"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:hint="身長を入力してください"-->
+<!--            android:inputType="number" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp">
+
+            <NumberPicker
+                android:id="@+id/numPicker3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="140dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cm"
+                android:gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="70dp"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+
+        <!-- 体重入力 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="身長(cm)"
-            android:textSize="16sp" />
+            android:text="体重を入力"
+            android:layout_marginStart="36dp"
+            android:textSize="22sp" />
 
-        <EditText
-            android:id="@+id/heightInput"
+<!--        <EditText-->
+<!--            android:id="@+id/weightInput"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:hint="体重を入力してください"-->
+<!--            android:inputType="number" />-->
+
+        <!-- 体重numberPicker設定 -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="身長を入力してください"
-            android:inputType="number" />
+            android:orientation="horizontal"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp">
+
+            <NumberPicker
+                android:id="@+id/numPicker1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="."
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="50dp"
+                android:textSize="50sp" />
+            <NumberPicker
+                android:id="@+id/numPicker2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:text="kg"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
 
         <!-- 次へボタン -->
         <Button
-            android:id="@+id/saveHeightButton"
-            android:layout_width="match_parent"
+            android:id="@+id/saveButton"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:onClick="goToWeightInfoActivity"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:onClick="goToNameInfoActivity"
             android:text="次へ" />
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="163dp"
+            android:layout_marginEnd="32dp">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/lightgraycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/graycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/lightgraycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/lightgraycircle" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

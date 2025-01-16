@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 背景のセレクト(上なら選択した状態で紫枠を表示、下ならデフォルト) -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 選択した状態で紫枠を表示 -->
+    <item android:state_selected="true" android:drawable="@drawable/select_background" />
+    <!-- 選択してないとデフォルト背景 -->
+    <item android:drawable="@drawable/default_background" />
+</selector>

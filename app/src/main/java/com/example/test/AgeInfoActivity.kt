@@ -12,16 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 
-class HeightInfoActivity : AppCompatActivity() {
+class AgeInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_height_info)
+        setContentView(R.layout.activity_age_info)
 
         // UI要素を取得
         val saveButton = findViewById<Button>(R.id.saveButton)
-        val numPicker1 = findViewById<NumberPicker>(R.id.numPicker1)
-        val numPicker2 = findViewById<NumberPicker>(R.id.numPicker2)
-        val numPicker3 = findViewById<NumberPicker>(R.id.numPicker3)
+        val numPicker = findViewById<NumberPicker>(R.id.numPicker)
 
         // ツールバーを取得
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -46,50 +44,31 @@ class HeightInfoActivity : AppCompatActivity() {
 //        // 保存された情報をロード
 //        loadBodyInfo(ageInput, heightInput, weightInput)
 
-        // 体重の下限上限設定
-        numPicker1.minValue = 20
-        numPicker1.maxValue = 200
-
-        // 体重の小数点
-        numPicker2.minValue = 0
-        numPicker2.maxValue = 9
-
-        // 身長の下限上限設定
-        numPicker3.minValue = 50
-        numPicker3.maxValue = 250
+        // 年齢の下限上限設定
+        numPicker.minValue = 5
+        numPicker.maxValue = 100
 
         // numberPickerの初期値
-        numPicker1.value = 60   // 体重
-        numPicker2.value = 0    // 体重(小数点)
-        numPicker3.value = 170  // 身長
+        numPicker.value = 25
 
         // ループ不可設定
-        numPicker1.wrapSelectorWheel = false
-        numPicker2.wrapSelectorWheel = false
-        numPicker3.wrapSelectorWheel = false
-
+        numPicker.wrapSelectorWheel = false
 
         // 保存ボタンのクリックリスナー
         saveButton.setOnClickListener {
-            val height : Int = numPicker3.value          // 身長をString型からInt変換
-            val weightLeft : Int = numPicker1.value      // 体重の左(整数)をString型からInt変換
-            val weightRight : Int = numPicker2.value     // 体重の右(小数)をString型からInt変換
-            val weightRightFloat : Float = weightRight.toFloat() / 10           // 小数点を10で割って計算
-            val weight : Float = weightLeft.toFloat() + weightRightFloat        // 体重を計算してFloat型に変換
+            val age : Int = numPicker.value          // 身長をString型からInt変換
 
             // 一旦端末の保存(後にデータベース)
-            saveHeightBodyInfo(height)
-            saveWeightBodyInfo(weight)
+            saveAgeBodyInfo(age)
             val sharedPreferences = getSharedPreferences("UserBodyInfo", MODE_PRIVATE)
 
             // 判定処理用
-            val savedHeight = sharedPreferences.getInt("height", -1)
-            val savedWeight = sharedPreferences.getFloat("weight", -1f)
+            val savedAge = sharedPreferences.getInt("age", -1)
 
-            // セーブが出来たら次へ
-            if (savedHeight == height && savedWeight == weight) {
-//                Toast.makeText(this, "情報を保存しました", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, NameInfoActivity::class.java)
+            // セーブが出来たらHomeへ
+            if (savedAge == age) {
+                Toast.makeText(this, "初期情報を保存しました", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "保存に失敗しました", Toast.LENGTH_SHORT).show()
@@ -99,18 +78,10 @@ class HeightInfoActivity : AppCompatActivity() {
     }
 
     // 身長情報を保存
-    private fun saveHeightBodyInfo(height: Int) {
+    private fun saveAgeBodyInfo(age: Int) {
         val sharedPreferences: SharedPreferences = getSharedPreferences("UserBodyInfo", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putInt("height", height)
-        editor.apply()
-    }
-
-    // 体重情報を保存
-    private fun saveWeightBodyInfo(weight: Float) {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("UserBodyInfo", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putFloat("weight", weight)
+        editor.putInt("age", age)
         editor.apply()
     }
 

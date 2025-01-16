@@ -1,47 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- 初回登録　-->
-        <TextView
+        <!-- ツールバー（画面上部） -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textSize="25dp"
-            android:text="初回登録" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="#A8EAE6"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <!-- LinearLayout内にTextViewを配置して中央揃え -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="初回身体情報登録"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+
+        <!-- アイコン -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="198dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/aicon" />
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+
         <!-- 性別入力 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="性別"
-            android:textSize="16sp" />
+            android:text="性別を選択"
+            android:layout_marginStart="36dp"
+            android:textSize="22sp" />
 
-        <EditText
-            android:id="@+id/genderInput"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:hint="性別を入力してください"
-            android:inputType="text" />
+            android:layout_marginTop="16dp">
+
+            <ImageButton
+                android:id="@+id/womanButton"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/button_select"
+                android:elevation="3dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/women" />
+
+            <ImageButton
+                android:id="@+id/manButton"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/button_select"
+                android:elevation="3dp"
+                android:scaleType="centerInside"
+                android:layout_marginStart="35dp"
+                app:srcCompat="@drawable/man" />
+        </LinearLayout>
+
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="280dp" />
 
         <!-- 次へボタン -->
         <Button
             android:id="@+id/savegenderButton"
-            android:layout_width="match_parent"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
             android:onClick="goToHeightInfoActivity"
             android:text="次へ" />
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="163dp"
+            android:layout_marginEnd="32dp">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/graycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/lightgraycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/lightgraycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/lightgraycircle" />
+        </LinearLayout>
 
     </LinearLayout>
 

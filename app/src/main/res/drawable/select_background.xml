@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 選択状態の背景 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" />
+    <stroke android:width="2dp" android:color="#691EC3" />
+    <corners android:radius="30dp" />
+</shape>

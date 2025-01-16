@@ -1,46 +1,138 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- 初回登録　-->
+        <!-- ツールバー（画面上部） -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#A8EAE6">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="初回身体情報登録"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+
+        <!-- アイコン -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="198dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/aicon" />
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+
+        <!-- 身長入力 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textSize="25dp"
-            android:text="初回登録" />
-        <!-- 年齢入力 -->
-        <TextView
+            android:text="年齢を入力"
+            android:layout_marginStart="36dp"
+            android:textSize="22sp" />
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/heightInput"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:gravity="center"-->
+        <!--            android:hint="身長を入力してください"-->
+        <!--            android:inputType="number" />-->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="年齢"
-            android:textSize="16sp" />
+            android:orientation="horizontal"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp">
 
-        <EditText
-            android:id="@+id/ageInput"
+            <NumberPicker
+                android:id="@+id/numPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="140dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="歳"
+                android:gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="70dp"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <!-- 余白 -->
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="年齢を入力してください"
-            android:inputType="number" />
+            android:layout_height="267dp" />
 
-        <!-- 次へボタン -->
+        <!-- 終了ボタン -->
         <Button
-            android:id="@+id/nextHeightButton"
-            android:layout_width="match_parent"
+            android:id="@+id/saveButton"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
             android:onClick="goToHomeActivity"
-            android:text="次へ" />
+            android:text="終了" />
+
+        <!-- 余白 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="163dp"
+            android:layout_marginEnd="32dp">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/lightgraycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/lightgraycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/lightgraycircle" />
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/graycircle" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

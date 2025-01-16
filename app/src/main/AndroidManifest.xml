@@ -63,6 +63,9 @@
 
         <!-- NameInfoActivityの定義 -->
         <activity android:name=".NameInfoActivity"/>
+
+        <!-- AgeInfoActivityの定義 -->
+        <activity android:name=".AgeInfoActivity"/>
     </application>
 
 </manifest>
