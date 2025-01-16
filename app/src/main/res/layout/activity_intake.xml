@@ -1,102 +1,194 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <!-- Title -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="過去のデータ"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:paddingBottom="16dp" />
-
-        <!-- Date Selector -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="16dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_anchor="@+id/drawer_layout"
+            app:layout_anchorGravity="center">
 
+            <!-- ツールバー（header） -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#A8EAE6"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <!-- LinearLayout内にTextViewを配置して中央揃え -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="過去の摂取量"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <!-- 期間選択(タイトル) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="25dp"
+                    android:text="開始日"
+                    android:textColor="#000000"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="60dp"
+                    android:text="終了日"
+                    android:textSize="28sp" />
+            </LinearLayout>
+
+            <!-- 期間選択(カレンダー) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/StartimageView"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="25dp"
+                    app:srcCompat="@drawable/care" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="～"
+                    android:textSize="35dp"
+                    android:gravity="center"/>
+
+                <ImageView
+                    android:id="@+id/FinishimageView"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="70dp"
+                    app:srcCompat="@drawable/care" />
+            </LinearLayout>
+
+            <!-- 期間選択(選択日付) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/StartText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginEnd="25dp"
+                    android:text="00/00"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/FinishText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="65dp"
+                    android:text="00/00"
+                    android:textSize="28sp" />
+
+            </LinearLayout>
+
+            <!-- 検索ボタン -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/GraphSearchbutton"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="検索"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"/>
+            </LinearLayout>
+
+            <!-- グラフタイトル -->
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/barChartTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="日付:"
-                android:textSize="16sp" />
+                android:text=""
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_marginTop="20dp"/>
 
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="11/11"
-                android:inputType="date"
-                android:minHeight="48dp"
-                android:layout_marginEnd="8dp" />
+            <!-- 棒グラフ -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="290dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="～"
-                android:textSize="16sp"
-                android:paddingHorizontal="8dp" />
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+            </FrameLayout>
 
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="11/20"
-                android:inputType="date"
-                android:minHeight="48dp"
-                android:layout_marginEnd="8dp"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="検索" />
         </LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-        <!-- Graph Placeholder -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#CCCCCC"
-            android:contentDescription="Graph Placeholder"
-            android:paddingBottom="16dp" />
+    <!-- フッター部分に BottomNavigationView を追加 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#A8EAE6"
+        app:menu="@menu/footer_menu" />
 
-        <!-- Statistics -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10日間の合計摂取量: 20L"
-            android:textSize="16sp"
-            android:paddingBottom="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10日間の平均摂取量: 2.0L"
-            android:textSize="16sp"
-            android:paddingBottom="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1日の目標達成日数: 1日"
-            android:textSize="16sp" />
-
-
-
-    </LinearLayout>
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
