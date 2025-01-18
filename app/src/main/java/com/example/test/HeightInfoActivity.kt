@@ -17,6 +17,10 @@ class HeightInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_height_info)
 
+        // AgeInfoActivityまで持っていく値
+        val email = intent.getStringExtra("email")      // メールアドレスの値を取得
+        val gender = intent.getStringExtra("gender")    // 性別の取得
+
         // UI要素を取得
         val saveButton = findViewById<Button>(R.id.saveButton)
         val numPicker1 = findViewById<NumberPicker>(R.id.numPicker1)
@@ -90,6 +94,12 @@ class HeightInfoActivity : AppCompatActivity() {
             if (savedHeight == height && savedWeight == weight) {
 //                Toast.makeText(this, "情報を保存しました", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, NameInfoActivity::class.java)
+                // 以下最後のAgeInfoActivityまで持っていく
+                intent.putExtra("email", email)     // メールアドレスの継承
+                intent.putExtra("gender", gender)   // 性別の継承
+                intent.putExtra("height", height)   // 身長の継承
+                intent.putExtra("weight", weight)   // 体重の継承
+
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "保存に失敗しました", Toast.LENGTH_SHORT).show()

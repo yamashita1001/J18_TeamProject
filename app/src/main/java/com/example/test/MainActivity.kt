@@ -31,10 +31,22 @@ class MainActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             if (logindb.validateUser(userId, password)) {
+                // userIdをeditorで保存(身体情報登録時に使用)
+                val sharedPreferences = getSharedPreferences("LoginInfo", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("userId", userId) // ログインしたuserIdを保存
+                editor.putString("password", password)  // ログインしたパスワード保存
+                editor.apply()
+
                 Toast.makeText(this, "ログインしました", Toast.LENGTH_SHORT).show()
+
+                // データベースからemailを取得(入力処理がないためデータベースから取得したもの)
+                val email = logindb.getEmailByUserId(userId)
+
                 // 次の画面に進む処理を追加
-                // GenderInfoActivity(初回登録)に遷移
+                // GenderInfoActivity(初回登録)に遷移+emailの値継承
                 val intent = Intent(this, GenderInfoActivity::class.java)
+                intent.putExtra("email", email)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "ユーザー名またはパスワードが間違っています", Toast.LENGTH_SHORT).show()

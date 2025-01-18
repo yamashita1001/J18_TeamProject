@@ -18,6 +18,9 @@ class GenderInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gender_info)
 
+        // メールアドレスの値を取得(AgeInfoActivityまで持っていく)
+        val email = intent.getStringExtra("email")
+
         // UI要素を取得
         val manButton = findViewById<ImageButton>(R.id.manButton)
         val womanButton = findViewById<ImageButton>(R.id.womanButton)
@@ -45,7 +48,10 @@ class GenderInfoActivity : AppCompatActivity() {
             if (selectGender != null) {
                 saveBodyInfo(selectGender!!)        // Stringで保存
 //                Toast.makeText(this, "情報を保存しました", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HeightInfoActivity::class.java) //身長登録に遷移
+                val intent = Intent(this, HeightInfoActivity::class.java)    // 身長登録に遷移
+                // 以下最後のAgeInfoActivityまで持っていく
+                intent.putExtra("email", email)     // メールアドレスの継承
+                intent.putExtra("gender", selectGender!!)   // 性別の継承
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "性別を選択してください", Toast.LENGTH_SHORT).show()

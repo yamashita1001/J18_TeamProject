@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class RegisterActivity : AppCompatActivity() {
 
-
     private lateinit var logindb: LoginDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +43,12 @@ class RegisterActivity : AppCompatActivity() {
             else {
                 val success = logindb.addUser(userId, email, password)
                 if (success) {
+                    // userIdをeditorで保存(身体情報登録時に使用)
+                    val sharedPreferences = getSharedPreferences("LoginInfo", MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("userId", userId)  // 登録したuserIdを保存
+                    editor.putString("email", email)    // メールアドレス保存
+                    editor.apply()
                     // ユーザー登録処理
                     Toast.makeText(this, "登録が完了しました！", Toast.LENGTH_SHORT).show()
 

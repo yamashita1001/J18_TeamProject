@@ -45,7 +45,7 @@ class AgeInfoActivity : AppCompatActivity() {
 //        loadBodyInfo(ageInput, heightInput, weightInput)
 
         // 年齢の下限上限設定
-        numPicker.minValue = 5
+        numPicker.minValue = 13
         numPicker.maxValue = 100
 
         // numberPickerの初期値
@@ -58,42 +58,68 @@ class AgeInfoActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             val age : Int = numPicker.value          // 身長をString型からInt変換
 
-            // 一旦端末の保存(後にデータベース)
+            // 端末の保存
             saveAgeBodyInfo(age)
-            val sharedPreferences = getSharedPreferences("UserBodyInfo", MODE_PRIVATE)
 
-            // 判定処理用
-            val savedAge = sharedPreferences.getInt("age", -1)
 
             // セーブが出来たらHomeへ
-            if (savedAge == age) {
-                Toast.makeText(this, "初期情報を保存しました", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "保存に失敗しました", Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText(this, "初期情報を保存しました", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, WaterCalculationActivity::class.java)
+            startActivity(intent)
         }
 
     }
 
-    // 身長情報を保存
+    // 最後に初期登録した情報を一括保存(データベース)
     private fun saveAgeBodyInfo(age: Int) {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("UserBodyInfo", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putInt("age", age)
-        editor.apply()
+        val sharedPreferences = getSharedPreferences("LoginInfo", MODE_PRIVATE)
+        val userId = sharedPreferences.getString("userId", null)        // 保存されたuserIdを取得
+        val password = sharedPreferences.getString("password", null)    // 保存されたパスワードを取得
+        val email = intent.getStringExtra("email")                             // メールアドレスの値を取得
+        val gender = intent.getStringExtra("gender")    // 性別の取得
+        val height = intent.getIntExtra("height", -1)    // 身長の取得
+        val weight = intent.getFloatExtra("weight", -1f)    // 体重の取得
+        val name = intent.getStringExtra("name")        // ニックネーム名の取得
+
+        // 体重の小数点の四捨五入
+        val weightRoundUp = Math.round(weight * 10.0) / 10.0
+
+        // userIdが存在しないかのエラーチェック
+        if (userId == null) {
+            Toast.makeText(this, "ログイン情報が見つかりません", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // パスワードが存在しないかのエラーチェック
+        if (password == null) {
+            Toast.makeText(this, "ログイン情報が見つかりません", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // メールアドレスが存在しないかのエラーチェック
+        if (email == null) {
+            Toast.makeText(this, "メールアドレス情報が見つかりません", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // 身体情報が正しく入力されているかのエラーチェック
+        if (height == -1 || weight == -1f || name.isNullOrBlank() || gender == null) {
+            Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // データベースインスタンス
+        val database = LoginDatabase(this)
+
+        // データベースに保存(userId, email, passwordも含めて)
+        val isSaved = database.saveUserBodyInfo(userId, email, password, age, gender, weightRoundUp, height, name)
+
+        // 保存成功失敗判定処理
+        if (isSaved) {
+//            Toast.makeText(this, "データベースに保存しました", Toast.LENGTH_SHORT).show()
+        } else {
+//            Toast.makeText(this, "保存に失敗しました", Toast.LENGTH_SHORT).show()
+        }
     }
 
-//    // 身体情報をロード
-//    private fun loadBodyInfo(ageInput: EditText, heightInput: EditText, weightInput: EditText) {
-//        val sharedPreferences: SharedPreferences = getSharedPreferences("UserBodyInfo", MODE_PRIVATE)
-//        val age = sharedPreferences.getInt("age", -1)
-//        val height = sharedPreferences.getFloat("height", -1f)
-//        val weight = sharedPreferences.getFloat("weight", -1f)
-//
-//        if (age != -1) ageInput.setText(age.toString())
-//        if (height != -1f) heightInput.setText(height.toString())
-//        if (weight != -1f) weightInput.setText(weight.toString())
-//    }
 }

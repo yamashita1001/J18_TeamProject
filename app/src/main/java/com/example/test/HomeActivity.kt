@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.utils.ColorTemplate
 import android.os.Handler
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.view.Menu
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,15 +29,28 @@ class HomeActivity : AppCompatActivity() {
     companion object {
         // 静的に合計を保持
         var sumWaterValue = 0
-        var goalWaterValue = 2000
         var percentWaterValue:Long = 0
-
+        var goalWaterValue: Int? = null // 初期値をnullにして未設定を示す
     }
+
+    private var isExecuted: Boolean = false // アクティビティ内でのみ有効なフラグ
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        // goalWaterValueが未設定の場合のみ更新(初回のみ実行)
+        if (goalWaterValue == null) {
+            // 合計摂取量の計算結果をホームで設定
+            val waterSum = intent.getIntExtra("waterIntake", 2000) // デフォルト値2000(適当)
+            Log.d("HomeActivity", "受け渡した値: $waterSum")
+            goalWaterValue = waterSum       // 目標摂取量に計算結果を格納
+            Log.d("HomeActivity", "goalWaterValue: $goalWaterValue")
+        } else {
+            Log.d("HomeActivity", "goalWaterValue: $goalWaterValue")
+        }
+
 
         // ツールバーのセットアップ
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -56,8 +70,9 @@ class HomeActivity : AppCompatActivity() {
         val waterValue = intent.getIntExtra("TEXT_KEY", 0)
         // InputWaterから値を継承したものを合計して表示
         if (waterValue != null) {
+            Log.d("HomeActivity", "goalWaterValue: $goalWaterValue")
             sumWaterValue += waterValue // 合計に加算
-            percentWaterValue = Math.round(sumWaterValue.toDouble() / goalWaterValue.toDouble() * 100)
+            percentWaterValue = Math.round(sumWaterValue.toDouble() / goalWaterValue!!.toDouble() * 100)
         }
 
 

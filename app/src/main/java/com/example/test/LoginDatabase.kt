@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class LoginDatabase(private val context: Context) : SQLiteOpenHelper(context, "WaterDatabase", null, 5) {
+class LoginDatabase(private val context: Context) : SQLiteOpenHelper(context, "WaterDatabase", null, 7) {
 
     // ---------------------------------------------------------------------- //
     // テーブルを作成する関数
@@ -19,6 +19,7 @@ class LoginDatabase(private val context: Context) : SQLiteOpenHelper(context, "W
                 email TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL UNIQUE,
                 age INTEGER,
+                gender TEXT,
                 height INTEGER,
                 weight INTEGER
             )
@@ -96,5 +97,74 @@ class LoginDatabase(private val context: Context) : SQLiteOpenHelper(context, "W
         cursor.close()
         db.close()
         return isValid
+    }
+
+    // ---------------------------------------------------------------------- //
+    // userIdからログイン時のメールアドレス取得
+    // ---------------------------------------------------------------------- //
+    fun getEmailByUserId(userId: String): String? {
+        val db = this.readableDatabase
+        val query = "SELECT email FROM Users WHERE userId = ?"
+        val cursor = db.rawQuery(query, arrayOf(userId))
+        var email: String? = null
+
+        if (cursor.moveToFirst()) {
+            email = cursor.getString(cursor.getColumnIndexOrThrow("email"))
+        }
+
+        cursor.close()
+        db.close()
+        return email
+    }
+
+    // ---------------------------------------------------------------------- //
+    // 初回身体情報保存
+    // ---------------------------------------------------------------------- //
+    fun saveUserBodyInfo(userId: String, email: String, password: String, age: Int, gender: String, weight: Double, height: Int, name: String): Boolean {
+        val db = writableDatabase       // 編集可能なデータベースインスタンスを格納
+        val values = ContentValues().apply {
+            put("userId", userId)
+            put("email", email)
+            put("password", password)
+            put("name", name)
+            put("age", age)
+            put("gender", gender)
+            put("weight", weight)
+            put("height", height)
+
+        }
+        // SQLにデータ挿入
+        val result = db.insertWithOnConflict("Users", null, values, SQLiteDatabase.CONFLICT_REPLACE)
+        db.close()
+        return result != -1L
+    }
+
+    // ---------------------------------------------------------------------- //
+    // 身体情報の取得
+    // ---------------------------------------------------------------------- //
+    data class UserBodyInfo(
+        val height: Int,
+        val weight: Double,
+        val age: Int
+    )
+    // userIdから身体情報を取得
+    fun getUserBodyInfo(userId: String): UserBodyInfo? {
+        val db = this.readableDatabase
+        val query = "SELECT height, weight, age FROM Users WHERE userId = ?"
+        val cursor = db.rawQuery(query, arrayOf(userId))
+        var userBodyInfo: UserBodyInfo? = null
+
+        // 身長・体重・年齢をuserBodyInfoに格納
+        if (cursor.moveToFirst()) {
+            val height = cursor.getInt(cursor.getColumnIndexOrThrow("height"))
+            val weight = cursor.getDouble(cursor.getColumnIndexOrThrow("weight"))
+            val age = cursor.getInt(cursor.getColumnIndexOrThrow("age"))
+            userBodyInfo = UserBodyInfo(height, weight, age)
+        }
+
+        cursor.close()
+        db.close()
+        // 取得した情報をデータクラスとして返す
+        return userBodyInfo
     }
 }

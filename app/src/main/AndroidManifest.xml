@@ -66,6 +66,9 @@
 
         <!-- AgeInfoActivityの定義 -->
         <activity android:name=".AgeInfoActivity"/>
+
+        <!-- WaterCalculationActivityの定義 -->
+        <activity android:name=".WaterCalculationActivity"/>
     </application>
 
 </manifest>
