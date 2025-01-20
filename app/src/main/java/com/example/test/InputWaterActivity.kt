@@ -3,88 +3,43 @@ package com.example.test
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
+import android.widget.GridLayout
 import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 
 class InputWaterActivity : AppCompatActivity() {
 
-    // 水分量に応じた画像リソースを返す関数
-    private fun getWaterImageResource(waterValue: Int): Int {
-        return when (waterValue) {
-            120 -> R.drawable.ic_120ml
-            200 -> R.drawable.ic_200ml
-            500 -> R.drawable.ic_500ml
-            1000 -> R.drawable.ic_1000ml
-            1500 -> R.drawable.ic_1500ml
-            2000 -> R.drawable.ic_2000ml
-            else -> { /* 何もしない */ 0 }
-        }
-    }
+    private lateinit var buttonGrid: GridLayout
+    private val CUSTOM_INPUT_REQUEST_CODE = 1001
+    private val customButtons = mutableListOf<Int>() // カスタムボタンの容量を保存
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inputwater)
 
-        // UIに表示
-        val inputCompletedButton = findViewById<Button>(R.id.inputCompletedButton)
-        val inputNumberText = findViewById<EditText>(R.id.inputNumberText)
+        buttonGrid = findViewById(R.id.buttonGrid)
         val button120 = findViewById<ImageButton>(R.id.button120)
         val button200 = findViewById<ImageButton>(R.id.button200)
         val button500 = findViewById<ImageButton>(R.id.button500)
         val button1000 = findViewById<ImageButton>(R.id.button1000)
         val button1500 = findViewById<ImageButton>(R.id.button1500)
         val button2000 = findViewById<ImageButton>(R.id.button2000)
+        val addCustomButton = findViewById<ImageButton>(R.id.addCustomButton)
 
-        // 最近使用した項目ボタンを3枠取得
-        val recent1 = findViewById<ImageButton>(R.id.recent1)
-        val recent2 = findViewById<ImageButton>(R.id.recent2)
-        val recent3 = findViewById<ImageButton>(R.id.recent3)
-
-        // ツールバーを取得
+        // ツールバーの設定
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-
-        // ツールバーをアクションバーとして設定
         setSupportActionBar(toolbar)
-
-        // 戻るボタンを有効化
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
+        toolbar.navigationIcon?.setTint(ContextCompat.getColor(this, android.R.color.black))
 
-        // 戻るボタンのクリックイベントを処理
-        toolbar.setNavigationOnClickListener {
-            finish() // 現在のアクティビティを終了して前の画面に戻る
-        }
-
-        // Homeへ遷移(入力した値を持って)
-        inputCompletedButton.setOnClickListener {
-            // EditTextから水分摂取量を取得
-            val inputText = inputNumberText.text.toString()
-            val waterValue = inputText.toIntOrNull() // 数値変換
-
-            // 入力なし
-            if (waterValue == null) {
-                Toast.makeText(this, "数値を入力してください", Toast.LENGTH_SHORT).show()
-            }
-            // 1以上6000以下で判定(致死量6000mlのため)
-            else if (waterValue < 1 || waterValue > 6000) {
-                Toast.makeText(this, "1以上6000以下の値を入力してください", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                // 値が範囲内ならホーム画面へ遷移
-                val intent = Intent(this, HomeActivity::class.java)
-                // intent変数をつなげる(第一引数はキー，第二引数は渡したい変数)
-                intent.putExtra("TEXT_KEY", waterValue)
-                saveToRecentList(waterValue)
-                startActivity(intent)
-            }
-        }
-
-        // 各プリセットボタンリスナー
+        // 各ボタンのクリックリスナー設定
         button120.setOnClickListener { navigateWithWaterValue(120) }
         button200.setOnClickListener { navigateWithWaterValue(200) }
         button500.setOnClickListener { navigateWithWaterValue(500) }
@@ -92,55 +47,103 @@ class InputWaterActivity : AppCompatActivity() {
         button1500.setOnClickListener { navigateWithWaterValue(1500) }
         button2000.setOnClickListener { navigateWithWaterValue(2000) }
 
-        // よく使う項目のボタンに設定
-        displayRecentItems(recent1, recent2, recent3)
+        // カスタムボタンを追加するためのリスナー
+        addCustomButton.setOnClickListener {
+            val intent = Intent(this, CustomInputActivity::class.java)
+            startActivityForResult(intent, CUSTOM_INPUT_REQUEST_CODE)
+        }
+
+        // 保存されているカスタムボタンを復元
+        restoreCustomButtons()
     }
 
-    // ホーム画面へ水分量を持って遷移する関数
-    private fun navigateWithWaterValue(waterValue: Int) {
-        val intent = Intent(this, HomeActivity::class.java)
-        intent.putExtra("TEXT_KEY", waterValue)
-        saveToRecentList(waterValue)
-        startActivity(intent)
+    // カスタム容量を受け取る
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CUSTOM_INPUT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val waterValue = data?.getIntExtra("CUSTOM_WATER_VALUE", -1) ?: -1
+            if (waterValue > 0) {
+                addCustomButtonToGrid(waterValue)
+            } else {
+                Toast.makeText(this, "正しい水分量を取得できませんでした", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
-    // よく使う項目リストをSharedPreferencesから取得
-    private fun loadRecentList(): List<Pair<Int, Int>> {
-        val prefs = getSharedPreferences("recent_prefs", MODE_PRIVATE)
-        val recentMap = prefs.all.filterKeys { it.startsWith("water_value_") }
-        val recentList = recentMap.map { Pair(it.key.substringAfter("water_value_").toInt(), it.value as Int) }
-        return recentList.sortedByDescending { it.second } // 使用回数で降順に並べ替え
+    // 動的にボタンとテキストをGridLayoutに追加し、保存
+    private fun addCustomButtonToGrid(waterValue: Int) {
+        val container = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            layoutParams = GridLayout.LayoutParams().apply {
+                width = GridLayout.LayoutParams.WRAP_CONTENT
+                height = GridLayout.LayoutParams.WRAP_CONTENT
+                columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1)
+            }
+        }
+
+        val newButton = ImageButton(this).apply {
+            layoutParams = LinearLayout.LayoutParams(128.dpToPx(context), 128.dpToPx(context))
+            setBackgroundResource(0)
+            setImageResource(R.drawable.ic_custom_cup) // カスタムボタンの画像を指定
+            contentDescription = "${waterValue}ミリリットルボタン"
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            setOnClickListener {
+                navigateWithWaterValue(waterValue)
+            }
+        }
+
+        val textView = TextView(this).apply {
+            text = "${waterValue}ml"
+            textSize = 20f // 20dp相当
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = android.view.Gravity.CENTER // layout_gravity="center"
+                setMargins(0, 8.dpToPx(context), 0, 24.dpToPx(context)) // layout_marginBottom=24dp
+            }
+            textAlignment = TextView.TEXT_ALIGNMENT_CENTER
+        }
+
+        // ボタンとテキストをコンテナに追加
+        container.addView(newButton)
+        container.addView(textView)
+
+        // コンテナをGridLayoutに追加
+        buttonGrid.addView(container, buttonGrid.childCount - 1)
+
+        // ボタン情報を保存
+        saveCustomButton(waterValue)
     }
 
-    // 水分量をSharedPreferencesに保存
-    private fun saveToRecentList(newValue: Int) {
-        val prefs = getSharedPreferences("recent_prefs", MODE_PRIVATE)
-        val editor = prefs.edit()
 
-        // 使用回数を増加
-        val key = "water_value_$newValue"
-        val currentCount = prefs.getInt(key, 0)
-        editor.putInt(key, currentCount + 1)
-
+    // カスタムボタンの容量を保存
+    private fun saveCustomButton(waterValue: Int) {
+        customButtons.add(waterValue)
+        val sharedPreferences = getSharedPreferences("CustomButtons", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("BUTTONS", customButtons.joinToString(","))
         editor.apply()
     }
 
-    // よく使う項目を表示
-    private fun displayRecentItems(vararg buttons: ImageButton) {
-        val recentList = loadRecentList()
-        buttons.forEachIndexed { index, button ->
-            if (index < recentList.size) {
-                val waterValue = recentList[index].first
-                button.setImageResource(getWaterImageResource(waterValue)) // 画像を動的に設定
-                button.tag = waterValue // 水分量をタグに保存
-                button.visibility = View.VISIBLE
-
-                button.setOnClickListener {
-                    navigateWithWaterValue(waterValue)
-                }
-            } else {
-                button.visibility = View.INVISIBLE
-            }
+    // カスタムボタンの復元
+    private fun restoreCustomButtons() {
+        val sharedPreferences = getSharedPreferences("CustomButtons", MODE_PRIVATE)
+        val savedButtons = sharedPreferences.getString("BUTTONS", null) ?: return
+        savedButtons.split(",").mapNotNull { it.toIntOrNull() }.forEach {
+            addCustomButtonToGrid(it)
         }
+    }
+
+    // dpをpxに変換
+    fun Int.dpToPx(context: android.content.Context): Int {
+        return (this * context.resources.displayMetrics.density).toInt()
+    }
+
+    // 水分量を次の画面に渡す
+    private fun navigateWithWaterValue(waterValue: Int) {
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.putExtra("TEXT_KEY", waterValue)
+        startActivity(intent)
     }
 }

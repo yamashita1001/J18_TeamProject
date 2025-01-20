@@ -69,6 +69,10 @@
 
         <!-- WaterCalculationActivityの定義 -->
         <activity android:name=".WaterCalculationActivity"/>
+
+        <!-- CustomInputActivityの定義 -->
+        <activity android:name=".CustomInputActivity"/>
+
     </application>
 
 </manifest>
